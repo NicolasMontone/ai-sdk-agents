@@ -42,21 +42,20 @@ const replicateModels = [
 type ReplicateModel = (typeof replicateModels)[number] | (string & {})
 
 export const replicateTools = (
-  { apiKey }: { apiKey: string },
+  { apiKey, model }: { apiKey: string; model?: ReplicateModel },
   config?: {
     excludeTools?: ReplicateTools[]
-    model?: ReplicateModel
   }
 ): Partial<Record<ReplicateTools, Tool>> => {
   if (
     !replicateModels.includes(
-      (config?.model ||
+      (model ||
         'black-forest-labs/flux-1.1-pro') as (typeof replicateModels)[number]
     )
   ) {
     throw new Error('Invalid model')
   }
-  return {
+  const tools: Partial<Record<ReplicateTools, Tool>> = {
     createImage: tool({
       description: 'Create an image based on the prompt',
       parameters: z.object({
@@ -65,12 +64,20 @@ export const replicateTools = (
       execute: async ({ prompt }) => {
         return await createImage(
           prompt,
-          config?.model ?? 'black-forest-labs/flux-1.1-pro',
+          model ?? 'black-forest-labs/flux-1.1-pro',
           apiKey
         )
       },
     }),
   }
+
+  for (const toolName in tools) {
+    if (config?.excludeTools?.includes(toolName as ReplicateTools)) {
+      delete tools[toolName as ReplicateTools]
+    }
+  }
+
+  return tools
 }
 
 async function createImage(
