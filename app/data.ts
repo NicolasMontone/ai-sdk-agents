@@ -496,5 +496,34 @@ export const tools = {
       ],
       "beta": true
     }
+  },
+  "telegram": {
+    "author": "https://nicolasmontone.com",
+    "name": "telegram",
+    "type": "registry:lib",
+    "description": "Telegram integration tools",
+    "dependencies": [
+      "zod",
+      "ai"
+    ],
+    "files": [
+      {
+        "path": "lib/tools/telegram.ts",
+        "type": "registry:lib",
+        "content": "import { type Tool, tool } from 'ai'\nimport { z } from 'zod'\n\nexport type TelegramTools = 'sendMessage'\n\nexport const telegramTools = (\n  { botToken, chatId }: { botToken: string; chatId: string },\n  config?: { excludeTools?: TelegramTools[] }\n): Partial<Record<TelegramTools, Tool>> => {\n  const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`\n\n  const tools: Partial<Record<TelegramTools, Tool>> = {\n    sendMessage: tool({\n      description: 'Send a message to a telegram chat',\n      parameters: z.object({\n        message: z.string().describe('The message to send'),\n      }),\n      execute: async ({ message }) => {\n        const response = await sendMessage(telegramUrl, chatId, message)\n\n        return response\n      },\n    }),\n  }\n\n  if (config?.excludeTools) {\n    for (const toolName in tools) {\n      if (config.excludeTools.includes(toolName as TelegramTools)) {\n        delete tools[toolName as TelegramTools]\n      }\n    }\n  }\n\n  return tools\n}\n\nasync function sendMessage(\n  telegramUrl: string,\n  chatId: string,\n  message: string\n) {\n  try {\n    const response = await fetch(telegramUrl, {\n      method: 'POST',\n      body: JSON.stringify({\n        chat_id: chatId,\n        text: message,\n      }),\n    })\n\n    if (!response.ok) {\n      return {\n        error: 'Failed to send message',\n      }\n    }\n\n    if (response.status === 200) {\n      return {\n        success: 'Message sent successfully',\n      }\n    }\n  } catch {\n    return {\n      error: 'Failed to send message',\n    }\n  }\n}\n",
+        "target": ""
+      }
+    ],
+    "ui": {
+      "usage": "import { openai } from '@ai-sdk/openai'\nimport { streamText, convertToCoreMessages } from 'ai'\nimport { telegramTools } from '@/tools/telegram'\n// Allow streaming responses up to 30 seconds\nexport const maxDuration = 30\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json()\n\n  const botToken = process.env.TELEGRAM_BOT_TOKEN\n  const chatId = process.env.TELEGRAM_CHAT_ID\n\n  if (!botToken || !chatId) {\n    return new Response('Missing Telegram credentials', { status: 400 })\n  }\n\n  const result = await streamText({\n    model: openai('gpt-4'),\n    messages: convertToCoreMessages(messages),\n    system: `\n    You are a witty and entertaining comedy bot that specializes in delivering jokes through Telegram! \n    Your mission is to bring laughter and fun to the chat while maintaining good taste and appropriate content.\n    You have a great sense of humor and can deliver various types of jokes:\n\n    - Clever wordplay and puns\n    - Short situational comedy\n    - Light-hearted observations\n    - Classic \"setup-punchline\" jokes\n    - Clean humor suitable for all audiences\n\n    When interacting with users:\n\n    1. **Understand the Joke Request**:\n       - If a specific type of joke is requested (puns, dad jokes, etc.), focus on that\n       - Consider the context and keep it appropriate\n       - Be ready to explain jokes if asked (but remember, explained jokes are like dissected frogs - they help us understand but they don't work anymore!)\n\n    2. **Craft Your Delivery**:\n       - Build up the setup naturally\n       - Time your punchlines well with proper formatting\n       - Use emojis sparingly but effectively 😄\n       - Keep jokes concise and punchy\n\n    3. **Read the Room**:\n       - If a joke doesn't land well, have a funny recovery ready\n       - Be prepared to switch styles if needed\n       - Always keep it light and fun\n\n    **Style Guidelines**:\n\n    - **Joke Content**:\n      - Keep it clean and family-friendly\n      - No offensive or inappropriate content\n      - Avoid controversial topics\n      - Focus on universal humor that most people can relate to\n\n    - **Delivery Format**:\n      - Start with a clear setup\n      - Use proper timing (line breaks when needed)\n      - End with a strong punchline\n      - Add a playful emoji or two when it enhances the joke\n\n    - **Interaction Style**:\n      - Be playful and energetic\n      - Respond to feedback with humor\n      - Stay in character as a fun-loving joke bot\n      - Be ready with follow-up jokes or variations\n\n    Remember to:\n    - Keep the mood light and fun\n    - Read user reactions and adapt\n    - Have backup jokes ready\n    - Stay family-friendly and inclusive\n\n    Don't:\n    - Use inappropriate or offensive humor\n    - Overuse emojis or formatting\n    - Make jokes about sensitive topics\n    - Force humor when the moment isn't right\n\n    Example Joke Delivery:\n    \"Why don't programmers like nature? 🤔\n    It has too many bugs! 🐛😄\"\n    `,\n    maxSteps: 10,\n    tools: {\n      ...telegramTools({ botToken, chatId }),\n    },\n  })\n\n  return result.toDataStreamResponse()\n}\n",
+      "title": "Platforms",
+      "tools": [
+        {
+          "title": "sendMessage",
+          "description": "Send a message to a Telegram chat"
+        }
+      ],
+      "beta": true
+    }
   }
 }
