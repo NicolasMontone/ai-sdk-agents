@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI SDK Tools Registry
+
+This repository provides a collection of reusable "tools" that can be seamlessly integrated into an AI application using [shadcn](https://github.com/shadcn) or other CLI-based approaches. Each tool is defined with the necessary configuration and dependencies to give your AI application new capabilities, such as:
+
+- Interacting with platforms like Slack, Discord, and Vercel
+- Performing comprehensive web searches (Tavily, Perplexity)
+- Managing GitHub repositories, issues, and pull requests
+- Performing math calculations
+- Searching and retrieving GIFs through Giphy
+- And more...
 
 ## Getting Started
 
-First, run the development server:
+1. Pick the tool(s) you want to include in your AI application. Each "tool" is essentially a file (or set of files) that exports a "tool factory" function.
+2. Copy the JSON registry file you want from the [public/r](./public/r) folder.
+3. Use the [shadcn CLI](https://github.com/shadcn) (or a similar tool) to import the registry JSON into your AI SDK project.
+
+For example, if you want to add the GitHub tools from this repository to your own project, you could run:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm dlx shadcn@latest add https://ai-sdk-agents.vercel.app/r/math.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+(Feel free to replace "pnpm" with whichever package manager you prefer: npm, yarn, or bun.)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Folder Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **lib/tools**: Contains the TypeScript files that define each tool.
+- **public/r**: Contains JSON registry files used to quickly add the tools to your project.
+- **usage**: Contains example usage and endpoints for each tool.
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+Contributions, issues, and suggestions are welcome! If you'd like to add a new tool or improve an existing one:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Add a TypeScript file defining your tool's logic inside `lib/tools`.
+2. Update `scripts/generateToolsRegistry.ts` to include your new tool and produce a corresponding `.json` file in `public/r`.
+3. Open a pull request explaining your changes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+We appreciate your help in growing this tools registry, making it easier for developers to enhance their AI applications with minimal effort!

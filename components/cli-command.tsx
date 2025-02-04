@@ -40,21 +40,28 @@ export function CLICommand({ title }: { title: string }) {
 
   return (
     <div className="relative max-w-fit">
-      <div className="flex gap-2 mb-2">
-        {(['pnpm', 'npm', 'yarn', 'bun'] as const).map((pm) => (
-          <button
-            key={pm}
-            type="button"
-            onClick={() => setPackageManager(pm)}
-            className={`px-3 py-1 rounded cursor-pointer ${
-              packageManager === pm ? 'bg-secondary' : ''
-            }   ${!url ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={!url}
-          >
-            {pm}
-          </button>
-        ))}
-        <Button variant="outline" size="icon" onClick={handleCopy}>
+      <div className="flex flex-row gap-2 w-full justify-between">
+        <div className="flex gap-2 mb-2 w-full">
+          {(['pnpm', 'npm', 'yarn', 'bun'] as const).map((pm) => (
+            <button
+              key={pm}
+              type="button"
+              onClick={() => setPackageManager(pm)}
+              className={`px-3 py-1 rounded cursor-pointer ${
+                packageManager === pm ? 'bg-secondary' : ''
+              }   ${!url ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={!url}
+            >
+              {pm}
+            </button>
+          ))}
+        </div>
+        <Button
+          className="self-end"
+          variant="outline"
+          size="icon"
+          onClick={handleCopy}
+        >
           {copied ? <CheckIcon /> : <CopyIcon />}
         </Button>
       </div>
