@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
 import GithubStars from '@/components/github-stars'
+import { Suspense } from 'react'
 
 export default async function Layout({
   children,
@@ -14,7 +15,9 @@ export default async function Layout({
 }) {
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <AppSidebar />
+      </Suspense>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b p-4">
           <div className="flex items-center gap-2 w-full justify-between">

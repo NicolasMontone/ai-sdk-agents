@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { Suspense } from 'react'
 
 import {
   Sidebar,
@@ -56,12 +56,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupLabel>Introduction</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <React.Suspense>
-                {' '}
+              <Suspense fallback={<div>Loading...</div>}>
                 <SidebarItem
                   item={{ title: 'Introduction', param: 'introduction' }}
                 />
-              </React.Suspense>
+              </Suspense>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
