@@ -1,7 +1,6 @@
 import { openai } from '@ai-sdk/openai'
-import { streamText, convertToCoreMessages, tool } from 'ai'
-import { z } from 'zod'
-import { perplexityTools } from '@/lib/perplexity'
+import { streamText, convertToCoreMessages } from 'ai'
+import { perplexityTools } from '@/lib/tools/perplexity'
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 

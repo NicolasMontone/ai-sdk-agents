@@ -1,8 +1,6 @@
 import { openai } from '@ai-sdk/openai'
-import { streamText, convertToCoreMessages, tool } from 'ai'
-import { headers } from 'next/headers'
-import { z } from 'zod'
-import { giphyTools } from '@/lib/giphy'
+import { streamText, convertToCoreMessages } from 'ai'
+import { giphyTools } from '@/lib/tools/giphy'
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 

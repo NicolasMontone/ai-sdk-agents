@@ -1,7 +1,6 @@
 import { openai } from '@ai-sdk/openai'
-import { streamText, convertToCoreMessages, tool } from 'ai'
-import { z } from 'zod'
-import { postgresTools } from '@/lib/postgres'
+import { streamText, convertToCoreMessages } from 'ai'
+import { postgresTools } from '@/lib/tools/postgres'
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 
