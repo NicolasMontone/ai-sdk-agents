@@ -46,9 +46,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader className="flex flex-row items-center gap-2">
+      <SidebarHeader className="flex flex-row items-center gap-4 p-4">
         <Logo className="w-8 h-8 text-primary" />
-        <h1 className="text-md font-bold">Agent Tools</h1>
+        <h1 className="text-md font-bold"> Agent Tools</h1>
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
