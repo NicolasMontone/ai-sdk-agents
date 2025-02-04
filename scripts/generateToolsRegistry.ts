@@ -516,6 +516,37 @@ const availableTools: AvailableTools = {
       ],
     },
   },
+  replicate: {
+    author: 'https://nicolasmontone.com',
+    name: 'replicate',
+    type: 'registry:lib',
+    description: 'Replicate image generation tools',
+    dependencies: ['zod', 'ai', '@ai-sdk/replicate'],
+    files: [
+      {
+        path: 'lib/tools/replicate.ts',
+        type: 'registry:lib',
+        content: fs.readFileSync(
+          path.join(__dirname, '..', 'tools', 'replicate.ts'),
+          'utf-8'
+        ),
+        target: '',
+      },
+    ],
+    ui: {
+      usage: fs.readFileSync(
+        path.join(__dirname, '..', 'usage', 'replicate.txt'),
+        'utf-8'
+      ),
+      title: 'Image Generation',
+      tools: [
+        {
+          title: 'createImage',
+          description: 'Create an image based on a prompt',
+        },
+      ],
+    },
+  },
 } as const
 
 // first we write a file data.ts with an object with all the data of the tools
