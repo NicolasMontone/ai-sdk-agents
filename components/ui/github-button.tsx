@@ -59,22 +59,22 @@ export default function GithubButton({ count }: { count?: number }) {
         type="button"
         className={`
           relative overflow-hidden group
-          px-6 py-3 rounded-md backdrop-filter backdrop-blur-lg
+          px-4 py-2 rounded-md backdrop-filter backdrop-blur-lg
           border border-white border-opacity-20
           transition-all duration-300 ease-out
           hover:shadow-lg
-          text-white font-medium
+          text-white text-sm font-medium
         `}
       >
-        <div className="relative z-10 flex items-center space-x-3">
+        <div className="relative z-10 flex items-center space-x-2">
           <div className="flex items-center space-x-2">
-            <GithubIcon className="w-5 h-5 fill-white" />
+            <GithubIcon className="w-4 h-4 fill-white" />
             <span>Star on GitHub</span>
           </div>
           <div className="flex items-center space-x-2">
             <Star
               ref={starRef}
-              className="w-5 h-5 text-white group-hover:text-yellow-400 transition-all duration-300"
+              className="w-4 h-4 text-white group-hover:text-yellow-400 transition-all duration-300"
             />
             <div>
               {!count || Number.isNaN(count) ? '-' : count.toLocaleString()}
@@ -102,7 +102,7 @@ export default function GithubButton({ count }: { count?: number }) {
             top: `${starRef.current?.getBoundingClientRect().y}px`,
           }}
         >
-          <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+          <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
         </div>
       )}
     </a>
