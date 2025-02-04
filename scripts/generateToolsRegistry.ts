@@ -559,6 +559,38 @@ const availableTools: AvailableTools = {
       beta: true,
     },
   },
+  telegram: {
+    author: 'https://nicolasmontone.com',
+    name: 'telegram',
+    type: 'registry:lib',
+    description: 'Telegram integration tools',
+    dependencies: ['zod', 'ai'],
+    files: [
+      {
+        path: 'lib/tools/telegram.ts',
+        type: 'registry:lib',
+        content: fs.readFileSync(
+          path.join(__dirname, '..', 'tools', 'telegram.ts'),
+          'utf-8'
+        ),
+        target: '',
+      },
+    ],
+    ui: {
+      usage: fs.readFileSync(
+        path.join(__dirname, '..', 'usage', 'telegram.txt'),
+        'utf-8'
+      ),
+      title: 'Platforms',
+      tools: [
+        {
+          title: 'sendMessage',
+          description: 'Send a message to a Telegram chat',
+        },
+      ],
+      beta: true,
+    },
+  },
 } as const
 
 // first we write a file data.ts with an object with all the data of the tools
