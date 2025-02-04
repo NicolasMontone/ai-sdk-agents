@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Badge } from '@/components/ui/badge'
 import { SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar'
+import { track } from '@vercel/analytics'
 
 export function SidebarItem({
   item,
@@ -14,6 +15,9 @@ export function SidebarItem({
 
   const handleClick = () => {
     router.push(`/?item=${item.param}`)
+    track('sidebar_item_clicked', {
+      item: item.param,
+    })
   }
 
   return (
