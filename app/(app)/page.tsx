@@ -46,7 +46,7 @@ export default function Page({
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4 container">
+    <div className="flex flex-1 flex-col gap-4 p-4 w-full">
       <h1 className="text-2xl font-bold">
         {data.title.charAt(0).toUpperCase() + data.title.slice(1)}
       </h1>
@@ -173,10 +173,10 @@ export default function Page({
               <TabsTrigger value="auto">Automatic (shadcn/ui cli)</TabsTrigger>
               <TabsTrigger value="manual">Manual (copy & paste)</TabsTrigger>
             </TabsList>
-            <TabsContent value="auto" className="mt-4 container">
+            <TabsContent value="auto" className="mt-4 w-full">
               <CLICommand title={data.title} />
             </TabsContent>
-            <TabsContent value="manual" className="mt-4 container">
+            <TabsContent value="manual" className="mt-4 w-full">
               <div className="flex flex-col gap-2">
                 <CodeBlock code={data.code} />
               </div>

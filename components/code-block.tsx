@@ -1,19 +1,14 @@
 'use client'
 
-import { unified } from 'unified'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import rehypePrettyCode from 'rehype-pretty-code'
-import type { Options } from 'rehype-pretty-code'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { CheckIcon, CopyIcon } from 'lucide-react'
 import { Button } from './ui/button'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { vs2015 } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 interface CodeBlockProps {
   code: string
   language?: string
-  theme?: string
   title?: string
   showLineNumbers?: boolean
   highlightLines?: number[]
@@ -22,24 +17,11 @@ interface CodeBlockProps {
 export function CodeBlock({
   code,
   language = 'typescript',
-  theme = 'github-dark-dimmed',
   title,
   showLineNumbers = false,
   highlightLines = [],
 }: CodeBlockProps) {
-  const [highlightedCode, setHighlightedCode] = useState<string>('')
   const [copied, setCopied] = useState(false)
-
-  useEffect(() => {
-    highlightCode({
-      code,
-      language,
-      theme,
-      title,
-      showLineNumbers,
-      highlightLines,
-    }).then(setHighlightedCode)
-  }, [code, language, theme, title, showLineNumbers, highlightLines])
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code)
@@ -49,12 +31,10 @@ export function CodeBlock({
     }, 3000)
   }
 
-  if (!highlightedCode) return <CodeBlockSkeleton />
-
   return (
-    <div className="relative rounded-lg overflow-hidden container">
+    <div className="relative rounded-lg overflow-hidden w-full">
       {title && (
-        <div className="px-4 py-2 text-sm text-gray-200 border-b border-gray-700/50 bg-[var(--shiki-dark-bg)]">
+        <div className="px-4 py-2 text-sm text-gray-200 border-b border-gray-700/50 bg-[#1f2428]">
           {title}
         </div>
       )}
@@ -67,47 +47,34 @@ export function CodeBlock({
           )}
         </Button>
       </div>
-      <div
-        className="text-sm max-w-full max-h-[600px] overflow-y-auto"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-        dangerouslySetInnerHTML={{ __html: highlightedCode }}
-      />
+      <div className="text-sm max-w-full max-h-[600px] overflow-y-auto">
+        <SyntaxHighlighter
+          language={language}
+          style={vs2015}
+          showLineNumbers={showLineNumbers}
+          wrapLines={true}
+          lineProps={(lineNumber) => ({
+            style: {
+              backgroundColor: highlightLines.includes(lineNumber)
+                ? '#2b3136'
+                : undefined,
+              display: 'block',
+              width: '100%',
+              wordBreak: 'break-all',
+              whiteSpace: 'pre-wrap',
+            },
+          })}
+          customStyle={{
+            margin: 0,
+            borderRadius: '0.5rem',
+            background: '#1f2428',
+          }}
+        >
+          {code}
+        </SyntaxHighlighter>
+      </div>
     </div>
   )
-}
-
-async function highlightCode(props: CodeBlockProps) {
-  const { code, language, theme, title, showLineNumbers, highlightLines } =
-    props
-
-  // Create meta string for the code block
-  const meta = [
-    highlightLines?.length ? `{${highlightLines.join(',')}}` : '',
-    title ? `title="${title}"` : '',
-    showLineNumbers ? 'showLineNumbers' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
-
-  // Create the code block with meta information
-  const codeBlock = `\`\`\`${language}${
-    meta ? ` ${meta}` : ''
-  }\n${code}\n\`\`\``
-
-  // Process the code through the unified pipeline
-  const file = await unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, {
-      theme,
-      keepBackground: true,
-      defaultLang: language,
-      grid: true,
-    } as Options)
-    .use(rehypeStringify)
-    .process(codeBlock)
-
-  return String(file)
 }
 
 export function CodeBlockSkeleton() {

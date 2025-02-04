@@ -39,7 +39,7 @@ export function CLICommand({ title }: { title: string }) {
   }
 
   return (
-    <div className="relative max-w-fit">
+    <div className="relative w-full">
       <div className="flex flex-row gap-2 w-full justify-between">
         <div className="flex gap-2 mb-2 w-full">
           {(['pnpm', 'npm', 'yarn', 'bun'] as const).map((pm) => (
@@ -65,11 +65,11 @@ export function CLICommand({ title }: { title: string }) {
           {copied ? <CheckIcon /> : <CopyIcon />}
         </Button>
       </div>
-      <pre className="bg-secondary p-4 rounded-lg">
+      <pre className="bg-secondary p-4 rounded-lg overflow-x-auto break-all whitespace-pre-wrap w-full">
         {url ? (
           getCommand()
         ) : (
-          <div className="bg-muted-foreground/20 w-80 rounded-md h-6 animate-pulse" />
+          <div className="bg-muted-foreground/20 w-full rounded-md h-6 animate-pulse" />
         )}
       </pre>
     </div>
