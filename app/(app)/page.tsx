@@ -13,9 +13,9 @@ export default function Page({
   const itemKey = use(searchParams).item
 
   let data = {
-    title: 'Welcome to AI SDK Tools',
+    title: 'AI SDK Tools Registry',
     description:
-      'Welcome to AI SDK Tools - a comprehensive collection of utility tools and integrations built for the Vercel AI SDK. This toolkit provides a variety of powerful tools including search capabilities (Tavily, Perplexity), mathematical operations, and platform integrations (Discord, Slack, GitHub). Built with modern web technologies and styled using Shadcn UI components, these tools are designed to enhance your AI-powered applications with ready-to-use functionalities. From database operations with PostgreSQL to advanced search capabilities and platform integrations, this toolkit simplifies the integration of AI features into your applications.',
+      'Welcome to the AI SDK Tools Registry - a comprehensive collection of ready-to-use tools and integrations for the Vercel AI SDK. This registry provides powerful components including search capabilities (Tavily, Perplexity), platform integrations (Discord, Slack, GitHub), and more. Each tool is designed to be easily installed via the shadcn CLI, allowing you to quickly enhance your AI-powered applications with production-ready features. Built with modern web technologies and styled using Shadcn UI components, these tools streamline the process of adding AI capabilities to your applications.',
     usage: '',
     code: '',
   }

@@ -19,17 +19,22 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'AI Agents',
+  title: 'AI SDK Tools Registry',
   metadataBase: new URL('https://ai-agents.dev'),
-  description: 'AI Agents',
+  description: 'A comprehensive collection of ready-to-use AI tools and integrations for the Vercel AI SDK. Features include search capabilities, platform integrations (Discord, Slack, GitHub), and more - all easily installable via shadcn CLI.',
   keywords: [
     'AI SDK',
+    'Vercel AI SDK',
     'shadcn/ui',
-    'simple-ai',
-    'AI Chatbot',
+    'AI Tools',
+    'AI Integrations',
+    'Discord Bot',
+    'Slack Integration',
+    'GitHub Tools',
+    'Tavily Search',
+    'Perplexity AI',
     'React',
     'Next.js',
-    'Tailwind CSS',
     'TypeScript',
   ],
   authors: [
