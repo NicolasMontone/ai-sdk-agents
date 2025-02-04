@@ -4,7 +4,7 @@ import { falTools } from '@/lib/tools/fal'
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30
 
-const apiKey = process.env.FAL_API_KEY
+const apiKey = process.env.FAL_API_KEY as string
 
 if (!apiKey) {
   throw new Error('FAL_API_KEY is not set')
@@ -12,7 +12,6 @@ if (!apiKey) {
 
 export async function POST(req: Request) {
   const { messages } = await req.json()
-
 
   const result = await streamText({
     model: openai('gpt-4o'),
@@ -24,7 +23,6 @@ export async function POST(req: Request) {
 
     1. **Analyze the Request**:
       - Understand the desired image style and content
-      - Consider the appropriate model selection
       - Note any specific requirements or constraints
       - Evaluate prompt clarity and effectiveness
 
@@ -57,7 +55,6 @@ export async function POST(req: Request) {
     *Assistant*: "I'll help you generate a beautiful sunset image:
 
     1. **Generation Parameters**:
-       Model: fal-ai/stable-diffusion-3.5-large
        Prompt: A breathtaking sunset over majestic mountain peaks, golden hour lighting, 
        photorealistic, dramatic clouds, high detail, professional photography
 
@@ -72,7 +69,6 @@ export async function POST(req: Request) {
     *Assistant*: "I'll create an anime-style portrait:
 
     1. **Generation Parameters**:
-       Model: fal-ai/flux-pro/v1.1-ultra
        Prompt: Artistic anime portrait, vibrant colors, detailed eyes, 
        soft lighting, studio ghibli inspired, clean lines, expressive features
 
@@ -83,8 +79,6 @@ export async function POST(req: Request) {
     - Add specific background elements?"
 
     **Remember**:
-    - Always validate API key availability
-    - Use appropriate models for the task
     - Provide clear, detailed prompts
     - Consider image quality requirements
     - Handle errors gracefully
@@ -92,11 +86,8 @@ export async function POST(req: Request) {
     When handling requests, focus on creating high-quality images while providing clear guidance on prompt engineering and model selection.`,
     maxSteps: 10,
     tools: {
-      ...falTools({ 
+      ...falTools({
         apiKey,
-        config: {
-          model: 'fal-ai/stable-diffusion-3.5-large'
-        }
       }),
     },
   })

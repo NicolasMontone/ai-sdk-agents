@@ -62,34 +62,38 @@ const models = [
 type FalModel = (typeof models)[number] | (string & {})
 
 export const falTools = (
-  { apiKey }: { apiKey: string },
+  { apiKey, model }: { apiKey: string; model?: FalModel },
   config?: {
     excludeTools?: FalTools[]
-    model?: FalModel
   }
 ): Partial<Record<FalTools, Tool>> => {
   if (
-    !models.includes(
-      (config?.model || 'fal-ai/fast-sdxl') as (typeof models)[number]
-    )
+    !models.includes((model || 'fal-ai/flux-pro/v1.1') as (typeof models)[number])
   ) {
     throw new Error('Invalid model')
   }
-  return {
+
+  const tools: Partial<Record<FalTools, Tool>> = {
     createImage: tool({
       description: 'Create an image based on the prompt',
       parameters: z.object({
         prompt: z.string().describe('The prompt to create an image based on'),
       }),
       execute: async ({ prompt }) => {
-        return await createImage(
-          prompt,
-          config?.model ?? 'fal-ai/fast-sdxl',
-          apiKey
-        )
+        return await createImage(prompt, model ?? 'fal-ai/flux-pro/v1.1', apiKey)
       },
     }),
   }
+
+  if (config?.excludeTools) {
+    for (const toolName in tools) {
+      if (config.excludeTools.includes(toolName as FalTools)) {
+        delete tools[toolName as FalTools]
+      }
+    }
+  }
+
+  return tools
 }
 
 async function createImage(prompt: string, model: FalModel, apiKey: string) {
