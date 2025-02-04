@@ -1,4 +1,4 @@
-import type * as React from 'react'
+import * as React from 'react'
 
 import {
   Sidebar,
@@ -56,9 +56,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupLabel>Introduction</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              <SidebarItem
-                item={{ title: 'Introduction', param: 'introduction' }}
-              />
+              <React.Suspense>
+                {' '}
+                <SidebarItem
+                  item={{ title: 'Introduction', param: 'introduction' }}
+                />
+              </React.Suspense>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
