@@ -18,7 +18,7 @@ type AvailableTools = Record<
     }[]
     ui: {
       usage: string
-      title: 'Platforms' | 'Search' | 'Utils'
+      title: 'Platforms' | 'Search' | 'Utils' | 'Image Generation'
       tools: {
         title: string
         description: string
@@ -481,6 +481,37 @@ const availableTools: AvailableTools = {
         {
           title: 'searchDomains',
           description: 'Search for domains in Vercel',
+        },
+      ],
+    },
+  },
+  fal: {
+    author: 'https://nicolasmontone.com',
+    name: 'fal',
+    type: 'registry:lib',
+    description: 'Fal.ai image generation tools',
+    dependencies: ['zod', 'ai', '@ai-sdk/fal'],
+    files: [
+      {
+        path: 'lib/tools/fal.ts',
+        type: 'registry:lib',
+        content: fs.readFileSync(
+          path.join(__dirname, '..', 'tools', 'fal.ts'),
+          'utf-8'
+        ),
+        target: '',
+      },
+    ],
+    ui: {
+      usage: fs.readFileSync(
+        path.join(__dirname, '..', 'usage', 'fal.txt'),
+        'utf-8'
+      ),
+      title: 'Image Generation',
+      tools: [
+        {
+          title: 'createImage',
+          description: 'Create an image based on a prompt',
         },
       ],
     },

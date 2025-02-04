@@ -10,6 +10,7 @@
     "generate:registry": "bun run scripts/generateToolsRegistry.ts"
   },
   "dependencies": {
+    "@ai-sdk/fal": "^0.0.2",
     "@giphy/js-fetch-api": "^5.6.0",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",

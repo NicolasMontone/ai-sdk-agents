@@ -4,6 +4,7 @@
     "": {
       "name": "ai-sdk-agents",
       "dependencies": {
+        "@ai-sdk/fal": "^0.0.2",
         "@giphy/js-fetch-api": "^5.6.0",
         "@mdx-js/loader": "^3.1.0",
         "@mdx-js/react": "^3.1.0",
@@ -59,6 +60,8 @@
     },
   },
   "packages": {
+    "@ai-sdk/fal": ["@ai-sdk/fal@0.0.2", "", { "dependencies": { "@ai-sdk/provider": "1.0.7", "@ai-sdk/provider-utils": "2.1.6" }, "peerDependencies": { "zod": "^3.0.0" } }, "sha512-ie/Wk/rwcvF5gmA8Cy1vR1dOZxuYRog0mv0p/0sJhDVT8iAQEIR9ZcsCG1L+W1CwYZjF+cUulfnui6ILoMobUg=="],
+
     "@ai-sdk/provider": ["@ai-sdk/provider@1.0.7", "", { "dependencies": { "json-schema": "^0.4.0" } }, "sha512-q1PJEZ0qD9rVR+8JFEd01/QM++csMT5UVwYXSN2u54BrVw/D8TZLTeg2FEfKK00DgAx0UtWd8XOhhwITP9BT5g=="],
 
     "@ai-sdk/provider-utils": ["@ai-sdk/provider-utils@2.1.6", "", { "dependencies": { "@ai-sdk/provider": "1.0.7", "eventsource-parser": "^3.0.0", "nanoid": "^3.3.8", "secure-json-parse": "^2.7.0" }, "peerDependencies": { "zod": "^3.0.0" }, "optionalPeers": ["zod"] }, "sha512-Pfyaj0QZS22qyVn5Iz7IXcJ8nKIKlu2MeSAdKJzTwkAks7zdLaKVB+396Rqcp1bfQnxl7vaduQVMQiXUrgK8Gw=="],
