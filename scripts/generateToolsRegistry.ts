@@ -269,9 +269,10 @@ fs.writeFileSync(
 
 // then we write in public folder each component as json to make it public for chad/cn cli
 for (const tool in availableTools) {
-  delete availableTools[tool].ui
+  const toolData = { ...availableTools[tool], ui: undefined }
+
   fs.writeFileSync(
     path.join(__dirname, '..', 'public', `r/${tool}.json`),
-    JSON.stringify(availableTools[tool], null, 2)
+    JSON.stringify(toolData, null, 2)
   )
 }
