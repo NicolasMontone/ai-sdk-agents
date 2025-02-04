@@ -20,6 +20,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     items: {
       title: string
       param: string
+      beta: boolean
     }[]
   }[] = []
 
@@ -33,6 +34,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {
             title: info.name.charAt(0).toUpperCase() + info.name.slice(1),
             param: info.name,
+            beta: info.ui.beta,
           },
         ],
       })
@@ -40,6 +42,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       titleExists.items.push({
         title: info.name.charAt(0).toUpperCase() + info.name.slice(1),
         param: info.name,
+        beta: info.ui.beta,
       })
     }
   }

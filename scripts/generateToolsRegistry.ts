@@ -23,6 +23,7 @@ type AvailableTools = Record<
         title: string
         description: string
       }[]
+      beta: boolean
     }
   }
 >
@@ -47,6 +48,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'discord.txt'),
         'utf-8'
@@ -95,6 +97,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'giphy.txt'),
         'utf-8'
@@ -127,6 +130,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'github.txt'),
         'utf-8'
@@ -203,6 +207,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'math.txt'),
         'utf-8'
@@ -287,6 +292,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'perplexity.txt'),
         'utf-8'
@@ -320,6 +326,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'postgres.txt'),
         'utf-8'
@@ -360,6 +367,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'slack.txt'),
         'utf-8'
@@ -420,6 +428,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'tavily.txt'),
         'utf-8'
@@ -464,6 +473,7 @@ const availableTools: AvailableTools = {
       },
     ],
     ui: {
+      beta: false,
       usage: fs.readFileSync(
         path.join(__dirname, '..', 'usage', 'vercel.txt'),
         'utf-8'
@@ -514,6 +524,7 @@ const availableTools: AvailableTools = {
           description: 'Create an image based on a prompt',
         },
       ],
+      beta: true,
     },
   },
   replicate: {
@@ -545,6 +556,7 @@ const availableTools: AvailableTools = {
           description: 'Create an image based on a prompt',
         },
       ],
+      beta: true,
     },
   },
 } as const

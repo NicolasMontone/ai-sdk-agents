@@ -1,13 +1,13 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-
+import { Badge } from '@/components/ui/badge'
 import { SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar'
 
 export function SidebarItem({
   item,
 }: {
-  item: { title: string; param: string }
+  item: { title: string; param: string; beta?: boolean }
 }) {
   const router = useRouter()
   const params = useSearchParams()
@@ -25,7 +25,14 @@ export function SidebarItem({
           (!params.get('item') && item.param === 'introduction')
         }
       >
-        {item.title}
+        <span className="flex items-center gap-2">
+          {item.title}
+          {item.beta && (
+            <Badge variant="default" className="text-[10px] h-4">
+              Beta
+            </Badge>
+          )}
+        </span>
       </SidebarMenuButton>
     </SidebarMenuItem>
   )
