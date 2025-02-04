@@ -39,7 +39,7 @@ export function CLICommand({ title }: { title: string }) {
   }
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full max-w-fit">
       <div className="flex flex-row gap-2 w-full justify-between">
         <div className="flex gap-2 mb-2 w-full">
           {(['pnpm', 'npm', 'yarn', 'bun'] as const).map((pm) => (
