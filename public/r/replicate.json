@@ -1,0 +1,19 @@
+{
+  "author": "https://nicolasmontone.com",
+  "name": "replicate",
+  "type": "registry:lib",
+  "description": "Replicate image generation tools",
+  "dependencies": [
+    "zod",
+    "ai",
+    "@ai-sdk/replicate"
+  ],
+  "files": [
+    {
+      "path": "lib/tools/replicate.ts",
+      "type": "registry:lib",
+      "content": "import { createReplicate } from '@ai-sdk/replicate'\n\nimport {\n  experimental_generateImage as generateImage,\n  tool,\n  type Tool,\n} from 'ai'\nimport { z } from 'zod'\n\nexport type ReplicateTools = 'createImage'\n\nconst replicateModels = [\n  'black-forest-labs/flux-1.1-pro',\n  'black-forest-labs/flux-1.1-pro-ultra',\n  'black-forest-labs/flux-dev',\n  'black-forest-labs/flux-pro',\n  'black-forest-labs/flux-schnell',\n  'bytedance/sdxl-lightning-4step',\n  'fofr/aura-flow',\n  'fofr/latent-consistency-model',\n  'fofr/realvisxl-v3-multi-controlnet-lora',\n  'fofr/sdxl-emoji',\n  'fofr/sdxl-multi-controlnet-lora',\n  'ideogram-ai/ideogram-v2',\n  'ideogram-ai/ideogram-v2-turbo',\n  'lucataco/dreamshaper-xl-turbo',\n  'lucataco/open-dalle-v1.1',\n  'lucataco/realvisxl-v2.0',\n  'lucataco/realvisxl2-lcm',\n  'luma/photon',\n  'luma/photon-flash',\n  'nvidia/sana',\n  'playgroundai/playground-v2.5-1024px-aesthetic',\n  'recraft-ai/recraft-v3',\n  'recraft-ai/recraft-v3-svg',\n  'stability-ai/stable-diffusion-3.5-large',\n  'stability-ai/stable-diffusion-3.5-large-turbo',\n  'stability-ai/stable-diffusion-3.5-medium',\n  'tstramer/material-diffusion',\n] as const\n\ntype ReplicateModel = (typeof replicateModels)[number] | (string & {})\n\nexport const replicateTools = (\n  { apiKey, model }: { apiKey: string; model?: ReplicateModel },\n  config?: {\n    excludeTools?: ReplicateTools[]\n  }\n): Partial<Record<ReplicateTools, Tool>> => {\n  if (\n    !replicateModels.includes(\n      (model ||\n        'black-forest-labs/flux-1.1-pro') as (typeof replicateModels)[number]\n    )\n  ) {\n    throw new Error('Invalid model')\n  }\n  const tools: Partial<Record<ReplicateTools, Tool>> = {\n    createImage: tool({\n      description: 'Create an image based on the prompt',\n      parameters: z.object({\n        prompt: z.string().describe('The prompt to create an image based on'),\n      }),\n      execute: async ({ prompt }) => {\n        return await createImage(\n          prompt,\n          model ?? 'black-forest-labs/flux-1.1-pro',\n          apiKey\n        )\n      },\n    }),\n  }\n\n  for (const toolName in tools) {\n    if (config?.excludeTools?.includes(toolName as ReplicateTools)) {\n      delete tools[toolName as ReplicateTools]\n    }\n  }\n\n  return tools\n}\n\nasync function createImage(\n  prompt: string,\n  model: ReplicateModel,\n  apiToken: string\n) {\n  const replicate = createReplicate({\n    apiToken,\n  })\n\n  return await generateImage({\n    model: replicate.image(model),\n    prompt,\n  })\n}\n",
+      "target": ""
+    }
+  ]
+}
