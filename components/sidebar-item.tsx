@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { SidebarMenuItem, SidebarMenuButton } from '@/components/ui/sidebar'
 
@@ -9,26 +9,23 @@ export function SidebarItem({
 }: {
   item: { title: string; param: string }
 }) {
+  const router = useRouter()
   const params = useSearchParams()
+
+  const handleClick = () => {
+    router.push(`/?item=${item.param}`)
+  }
 
   return (
     <SidebarMenuItem key={item.title}>
       <SidebarMenuButton
-        asChild
+        onClick={handleClick}
         isActive={
           params.get('item') === item.param ||
           (!params.get('item') && item.param === 'introduction')
         }
       >
-        <form action="">
-          <input type="hidden" name="item" value={item.param} />
-          <button
-            type="submit"
-            className="cursor-pointer w-full text-left h-full"
-          >
-            {item.title}
-          </button>
-        </form>
+        {item.title}
       </SidebarMenuButton>
     </SidebarMenuItem>
   )

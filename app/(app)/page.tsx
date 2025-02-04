@@ -1,14 +1,16 @@
+'use client'
 import { CLICommand } from '@/components/cli-command'
-import { tools } from './data'
+import { tools } from '../data'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CodeBlock } from '@/components/code-block'
+import { use } from 'react'
 
-export default async function Page({
+export default function Page({
   searchParams,
 }: {
   searchParams: Promise<{ item?: string }>
 }) {
-  const itemKey = (await searchParams).item
+  const itemKey = use(searchParams).item
 
   let data = {
     title: 'Welcome to AI SDK Tools',
@@ -31,7 +33,7 @@ export default async function Page({
   }
 
   return (
-    <div className="flex flex-1 flex-col gap-4 p-4">
+    <div className="flex flex-1 flex-col gap-4 p-4 container">
       <h1 className="text-2xl font-bold">
         {data.title.charAt(0).toUpperCase() + data.title.slice(1)}
       </h1>
@@ -44,14 +46,12 @@ export default async function Page({
               <TabsTrigger value="auto">Automatic (shadcn/ui cli)</TabsTrigger>
               <TabsTrigger value="manual">Manual (copy & paste)</TabsTrigger>
             </TabsList>
-            <TabsContent value="auto" className="mt-4">
+            <TabsContent value="auto" className="mt-4 container">
               <CLICommand title={data.title} />
             </TabsContent>
-            <TabsContent value="manual" className="mt-4">
+            <TabsContent value="manual" className="mt-4 container">
               <div className="flex flex-col gap-2">
-                <pre className="text-sm max-h-[600px] overflow-y-auto">
-                  {data.code}
-                </pre>
+                <CodeBlock code={data.code} />
               </div>
             </TabsContent>
           </Tabs>
@@ -60,7 +60,9 @@ export default async function Page({
       {data.usage && (
         <div className="mt-8">
           <h2 className="text-lg font-bold mb-4">Usage</h2>
-          <CodeBlock code={data.usage} />
+          <div className="flex flex-col gap-2">
+            <CodeBlock code={data.usage} />
+          </div>
         </div>
       )}
     </div>

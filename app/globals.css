@@ -86,3 +86,69 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Code block styles */
+pre {
+  position: relative;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  background-color: var(--shiki-dark-bg);
+  margin: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Container for the code content */
+pre > code {
+  display: block;
+  width: fit-content;
+  min-width: 100%;
+}
+
+/* Individual lines */
+pre [data-line] {
+  display: block;
+  padding: 0 1rem;
+  border-left: 2px solid transparent;
+  white-space: pre;
+}
+
+pre [data-highlighted-line] {
+  background: rgba(200, 200, 255, 0.1);
+  border-left: 2px solid #60A5FA;
+}
+
+pre [data-highlighted-chars] {
+  background: rgba(200, 200, 255, 0.2);
+  padding: 2px;
+  border-radius: 2px;
+}
+
+/* Line numbers */
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1rem;
+  text-align: right;
+  color: rgba(115, 138, 148, 0.4);
+}
+
+/* Inline code styles */
+:not(pre) > code {
+  background: rgba(200, 200, 255, 0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Code block wrapper */
+.code-block-wrapper {
+  width: 100%;
+  overflow: hidden;
+}

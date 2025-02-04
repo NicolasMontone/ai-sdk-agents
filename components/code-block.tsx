@@ -1,46 +1,124 @@
 'use client'
-import dynamic from 'next/dynamic'
-import { atomOneDark } from 'react-code-blocks'
-import { Button } from './ui/button'
+
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import rehypePrettyCode from 'rehype-pretty-code'
+import type { Options } from 'rehype-pretty-code'
+import { useState, useEffect } from 'react'
 import { CheckIcon, CopyIcon } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { Button } from './ui/button'
 
-const CodeBlockComponent = dynamic(
-  () => import('react-code-blocks').then((mod) => mod.CodeBlock),
-  {
-    ssr: false,
-  }
-)
+interface CodeBlockProps {
+  code: string
+  language?: string
+  theme?: string
+  title?: string
+  showLineNumbers?: boolean
+  highlightLines?: number[]
+}
 
-export function CodeBlock({ code }: { code: string }) {
+export function CodeBlock({
+  code,
+  language = 'typescript',
+  theme = 'github-dark-dimmed',
+  title,
+  showLineNumbers = false,
+  highlightLines = [],
+}: CodeBlockProps) {
+  const [highlightedCode, setHighlightedCode] = useState<string>('')
   const [copied, setCopied] = useState(false)
 
-  const handleCopy = useCallback(() => {
-    setCopied(true)
+  useEffect(() => {
+    highlightCode({
+      code,
+      language,
+      theme,
+      title,
+      showLineNumbers,
+      highlightLines,
+    }).then(setHighlightedCode)
+  }, [code, language, theme, title, showLineNumbers, highlightLines])
+
+  const handleCopy = () => {
     navigator.clipboard.writeText(code)
+    setCopied(true)
     setTimeout(() => {
       setCopied(false)
-    }, 2000)
-  }, [code])
+    }, 3000)
+  }
+
+  if (!highlightedCode) return <CodeBlockSkeleton />
 
   return (
-    <div className="bg-background rounded-lg p-4 w-full overflow-hidden">
-      <div className="flex flex-col w-full items-end justify-end">
-        <Button onClick={handleCopy} variant="outline" size="icon">
-          {copied ? <CheckIcon /> : <CopyIcon />}
+    <div className="relative rounded-lg overflow-hidden container">
+      {title && (
+        <div className="px-4 py-2 text-sm text-gray-200 border-b border-gray-700/50 bg-[var(--shiki-dark-bg)]">
+          {title}
+        </div>
+      )}
+      <div className="flex items-center justify-end mb-2">
+        <Button variant="outline" size="icon" onClick={handleCopy}>
+          {copied ? (
+            <CheckIcon className="w-4 h-4" />
+          ) : (
+            <CopyIcon className="w-4 h-4" />
+          )}
         </Button>
       </div>
-      <CodeBlockComponent
-        text={code}
-        language={'typescript'}
-        // make the background transparent
-        theme={{ ...atomOneDark, backgroundColor: '#27272a' }}
-        showLineNumbers={true}
-        codeContainerStyle={{
-          maxHeight: '600px',
-          maxWidth: '100%',
-        }}
+      <div
+        className="text-sm max-w-full max-h-[600px] overflow-y-auto"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+        dangerouslySetInnerHTML={{ __html: highlightedCode }}
       />
+    </div>
+  )
+}
+
+async function highlightCode(props: CodeBlockProps) {
+  const { code, language, theme, title, showLineNumbers, highlightLines } =
+    props
+
+  // Create meta string for the code block
+  const meta = [
+    highlightLines?.length ? `{${highlightLines.join(',')}}` : '',
+    title ? `title="${title}"` : '',
+    showLineNumbers ? 'showLineNumbers' : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  // Create the code block with meta information
+  const codeBlock = `\`\`\`${language}${
+    meta ? ` ${meta}` : ''
+  }\n${code}\n\`\`\``
+
+  // Process the code through the unified pipeline
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypePrettyCode, {
+      theme,
+      keepBackground: true,
+      defaultLang: language,
+      grid: true,
+    } as Options)
+    .use(rehypeStringify)
+    .process(codeBlock)
+
+  return String(file)
+}
+
+export function CodeBlockSkeleton() {
+  return (
+    <div>
+      <div className="flex items-center justify-end mb-2">
+        <Button variant="outline" size="icon" disabled>
+          <CopyIcon className="w-4 h-4" />
+        </Button>
+      </div>
+      <div className="w-full h-24 bg-gray-200/20 animate-pulse rounded-lg" />
     </div>
   )
 }
