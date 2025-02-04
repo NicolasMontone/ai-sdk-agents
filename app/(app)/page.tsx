@@ -24,9 +24,9 @@ export default function Page({
       description: string
     }[]
   } = {
-    title: 'AI SDK Tools Registry',
+    title: 'Vercel AI SDK Tools Registry',
     description:
-      'Welcome to the AI SDK Tools Registry - a comprehensive collection of ready-to-use tools and integrations for the Vercel AI SDK. This registry provides powerful components including search capabilities (Tavily, Perplexity), platform integrations (Discord, Slack, GitHub), and more. Each tool is designed to be easily installed via the shadcn CLI, allowing you to quickly enhance your AI-powered applications with production-ready features. Built with modern web technologies and styled using Shadcn UI components, these tools streamline the process of adding AI capabilities to your applications.',
+      "Welcome to the Vercel AI SDK Tools Registry - a specialized collection of tools designed for Large Language Models (LLMs) using the Vercel AI SDK. These tools empower your AI applications with production-ready capabilities, allowing LLMs to interact with various services and APIs. From performing web searches (Tavily, Perplexity) to integrating with platforms (Discord, Slack, GitHub), each tool is crafted to extend your LLM's capabilities. Built with modern web technologies and styled using Shadcn UI components, these tools make it easy to give your AI models the ability to perform real-world actions.",
     usage: '',
     code: '',
     tools: [],
@@ -51,12 +51,92 @@ export default function Page({
         {data.title.charAt(0).toUpperCase() + data.title.slice(1)}
       </h1>
       <p className="text-muted-foreground">{data.description}</p>
+      {itemKey === 'introduction' && (
+        <div className="mt-8">
+          <h2 className="text-lg font-bold mb-4">Quick Navigation</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a
+              href="?item=tavily"
+              className="p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Tool className="w-5 h-5 text-primary" />
+                <h3 className="font-medium text-lg">Search Tools</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Powerful search capabilities using Tavily and Perplexity for web
+                search, Q&A, and content extraction.
+              </p>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="text-xs">
+                  Tavily
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  Perplexity
+                </Badge>
+              </div>
+            </a>
+
+            <a
+              href="?item=discord"
+              className="p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Tool className="w-5 h-5 text-primary" />
+                <h3 className="font-medium text-lg">Platform Tools</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Integrate with popular platforms like Discord, Slack, GitHub,
+                and Vercel for messaging and management.
+              </p>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="text-xs">
+                  Discord
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  Slack
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  GitHub
+                </Badge>
+              </div>
+            </a>
+
+            <a
+              href="?item=math"
+              className="p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Tool className="w-5 h-5 text-primary" />
+                <h3 className="font-medium text-lg">Utility Tools</h3>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">
+                Essential utilities including mathematical operations, database
+                management, and media integration.
+              </p>
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary" className="text-xs">
+                  Math
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  Postgres
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  Giphy
+                </Badge>
+              </div>
+            </a>
+          </div>
+        </div>
+      )}
       {data.tools.length > 0 && (
         <div className="mt-8">
           <h2 className="text-lg font-bold mb-4">Available Tools</h2>
           <p className="text-muted-foreground mb-4">
-            This extension provides the following tools that can be used in your
-            AI application:
+            Each tool below represents a capability that can be added to your
+            Language Model. When integrated, these tools allow your LLM to
+            perform specific actions and access external services through the AI
+            SDK:
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data.tools.map((tool) => (
