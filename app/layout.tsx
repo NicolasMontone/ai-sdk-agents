@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Toaster } from '@/components/ui/toaster'
 
 import { cn } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/react'
 
 import type { ReactNode } from 'react'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -21,7 +22,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'AI SDK Tools Registry',
   metadataBase: new URL('https://ai-agents.dev'),
-  description: 'A comprehensive collection of ready-to-use AI tools and integrations for the Vercel AI SDK. Features include search capabilities, platform integrations (Discord, Slack, GitHub), and more - all easily installable via shadcn CLI.',
+  description:
+    'A comprehensive collection of ready-to-use AI tools and integrations for the Vercel AI SDK. Features include search capabilities, platform integrations (Discord, Slack, GitHub), and more - all easily installable via shadcn CLI.',
   keywords: [
     'AI SDK',
     'Vercel AI SDK',
@@ -62,6 +64,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         {children}
         <Toaster />
+        <Analytics />
       </body>
     </html>
   )
