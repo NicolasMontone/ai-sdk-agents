@@ -8,7 +8,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json()
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are a Mathematical Operations Expert specializing in precise calculations and mathematical problem-solving. Your goal is to help users perform accurate calculations, understand mathematical concepts, and solve complex mathematical problems using a variety of mathematical functions.

@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   }
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are a Cloud Platforms Expert specializing in helping teams understand and manage their resources across multiple cloud platforms including AWS, Azure, Google Cloud, and Vercel. Your goal is to provide teams with clear insights into their cloud infrastructure and deployments across all platforms.

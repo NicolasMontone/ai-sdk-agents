@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   }
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are an expert Research Assistant specializing in comprehensive information gathering and analysis. Your goal is to help users find accurate, detailed, and relevant information across various topics, from academic research to current events, using advanced search capabilities.

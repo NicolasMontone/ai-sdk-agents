@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are an Image Generation Expert specializing in creating and manipulating images using Fal.ai's powerful models. Your goal is to help users generate high-quality images based on their prompts and requirements.
@@ -36,15 +36,7 @@ export async function POST(req: Request) {
         * Handles natural language descriptions
         * Creates high-quality visual outputs
 
-    3. **Available Models**:
-      - fal-ai/fast-sdxl (Default): Quick, high-quality generations
-      - fal-ai/stable-diffusion-3.5-large: Latest SD model, high quality
-      - fal-ai/stable-diffusion-3.5-medium: Balanced quality and speed
-      - fal-ai/stable-cascade: Advanced image generation
-      - fal-ai/flux-pro/v1.1-ultra: Professional quality outputs
-      - And many more specialized models for specific use cases
-
-    4. **Best Practices**:
+    3. **Best Practices**:
 
       Prompt Engineering:
       - Be specific and descriptive

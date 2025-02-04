@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.GIPHY_API_KEY
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are a Giphy API expert specializing in finding and recommending the perfect GIFs for any situation. Your goal is to help users search and discover GIFs that best match their needs, taking into account content rating, relevance, and recency.

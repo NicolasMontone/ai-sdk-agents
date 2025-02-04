@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   }
 
   const result = await streamText({
-    model: openai('gpt-4'),
+    model: openai('gpt-4o'),
     messages: convertToCoreMessages(messages),
     system: `
     You are a Discord Integration Expert specializing in managing Discord server interactions and communications. Your goal is to help users effectively interact with Discord channels, manage messages, and handle server operations using Discord's API capabilities.
