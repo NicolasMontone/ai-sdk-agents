@@ -19,6 +19,10 @@ type AvailableTools = Record<
     ui: {
       usage: string
       title: 'Platforms' | 'Search' | 'Utils'
+      tools: {
+        title: string
+        description: string
+      }[]
     }
   }
 >
@@ -48,6 +52,28 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Platforms',
+      tools: [
+        {
+          title: 'sendMessage',
+          description: 'Send a message to a Discord channel',
+        },
+        {
+          title: 'getChannelInfo',
+          description: 'Get information about a Discord channel',
+        },
+        {
+          title: 'listChannels',
+          description: 'List all channels in a Discord server',
+        },
+        {
+          title: 'getChannelMessages',
+          description: 'Get messages from a Discord channel',
+        },
+        {
+          title: 'deleteMessage',
+          description: 'Delete a message from a Discord channel',
+        },
+      ],
     },
   },
   giphy: {
@@ -74,6 +100,12 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Search',
+      tools: [
+        {
+          title: 'search',
+          description: 'Search for GIFs on Giphy',
+        },
+      ],
     },
   },
   github: {
@@ -100,6 +132,56 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Platforms',
+      tools: [
+        {
+          title: 'searchRepositories',
+          description: 'Search for repositories on GitHub',
+        },
+        {
+          title: 'listRepositories',
+          description: 'List all repositories on GitHub',
+        },
+        {
+          title: 'getRepository',
+          description: 'Get information about a GitHub repository',
+        },
+        {
+          title: 'listPullRequests',
+          description: 'List all pull requests on a GitHub repository',
+        },
+        {
+          title: 'getPullRequest',
+          description: 'Get information about a GitHub pull request',
+        },
+        {
+          title: 'getPullRequestChanges',
+          description: 'Get changes from a GitHub pull request',
+        },
+        {
+          title: 'createIssue',
+          description: 'Create an issue on a GitHub repository',
+        },
+        {
+          title: 'reopenIssue',
+          description: 'Reopen an issue on a GitHub repository',
+        },
+        {
+          title: 'assignIssue',
+          description: 'Assign an issue to a user on a GitHub repository',
+        },
+        {
+          title: 'labelIssue',
+          description: 'Label an issue on a GitHub repository',
+        },
+        {
+          title: 'listIssueComments',
+          description: 'List all comments on an issue on a GitHub repository',
+        },
+        {
+          title: 'editIssue',
+          description: 'Edit an issue on a GitHub repository',
+        },
+      ],
     },
   },
   math: {
@@ -126,6 +208,64 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Utils',
+      tools: [
+        {
+          title: 'add',
+          description: 'Add two numbers',
+        },
+        {
+          title: 'subtract',
+          description: 'Subtract two numbers',
+        },
+        {
+          title: 'multiply',
+          description: 'Multiply two numbers',
+        },
+        {
+          title: 'divide',
+          description: 'Divide two numbers',
+        },
+        {
+          title: 'exponentiate',
+          description: 'Exponentiate a number',
+        },
+        {
+          title: 'factorial',
+          description: 'Calculate the factorial of a number',
+        },
+        {
+          title: 'isPrime',
+          description: 'Check if a number is prime',
+        },
+        {
+          title: 'squareRoot',
+          description: 'Calculate the square root of a number',
+        },
+        {
+          title: 'sin',
+          description: 'Calculate the sine of a number',
+        },
+        {
+          title: 'cos',
+          description: 'Calculate the cosine of a number',
+        },
+        {
+          title: 'tan',
+          description: 'Calculate the tangent of a number',
+        },
+        {
+          title: 'sqrt',
+          description: 'Calculate the square root of a number',
+        },
+        {
+          title: 'log',
+          description: 'Calculate the logarithm of a number',
+        },
+        {
+          title: 'exp',
+          description: 'Calculate the exponential of a number',
+        },
+      ],
     },
   },
   perplexity: {
@@ -152,6 +292,12 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Search',
+      tools: [
+        {
+          title: 'search',
+          description: 'Search for information on Perplexity',
+        },
+      ],
     },
   },
   postgres: {
@@ -179,6 +325,20 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Utils',
+      tools: [
+        {
+          title: 'getPublicTablesWithColumns',
+          description: 'Get public tables with columns',
+        },
+        {
+          title: 'getExplainForQuery',
+          description: 'Get explain for a query',
+        },
+        {
+          title: 'runQuery',
+          description: 'Run a query',
+        },
+      ],
     },
   },
   slack: {
@@ -205,6 +365,40 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Platforms',
+      tools: [
+        {
+          title: 'sendMessage',
+          description: 'Send a message to a Slack channel',
+        },
+        {
+          title: 'sendThreadReply',
+          description: 'Send a reply to a thread in a Slack channel',
+        },
+        {
+          title: 'getChannelHistory',
+          description: 'Get the history of a Slack channel',
+        },
+        {
+          title: 'getThreadReplies',
+          description: 'Get the replies to a thread in a Slack channel',
+        },
+        {
+          title: 'listChannels',
+          description: 'List all channels in a Slack workspace',
+        },
+        {
+          title: 'createChannel',
+          description: 'Create a new channel in a Slack workspace',
+        },
+        {
+          title: 'inviteToChannel',
+          description: 'Invite a user to a Slack channel',
+        },
+        {
+          title: 'setChannelTopic',
+          description: 'Set the topic of a Slack channel',
+        },
+      ],
     },
   },
   tavily: {
@@ -231,6 +425,24 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Search',
+      tools: [
+        {
+          title: 'search',
+          description: 'Search for information on Tavily',
+        },
+        {
+          title: 'searchContext',
+          description: 'Search for information on Tavily with context',
+        },
+        {
+          title: 'searchQNA',
+          description: 'Search for information on Tavily with Q&A',
+        },
+        {
+          title: 'extract',
+          description: 'Extract information from a URL',
+        },
+      ],
     },
   },
   vercel: {
@@ -257,6 +469,20 @@ const availableTools: AvailableTools = {
         'utf-8'
       ),
       title: 'Platforms',
+      tools: [
+        {
+          title: 'searchProjects',
+          description: 'Search for projects in Vercel',
+        },
+        {
+          title: 'searchDeployments',
+          description: 'Search for deployments in Vercel',
+        },
+        {
+          title: 'searchDomains',
+          description: 'Search for domains in Vercel',
+        },
+      ],
     },
   },
 } as const
