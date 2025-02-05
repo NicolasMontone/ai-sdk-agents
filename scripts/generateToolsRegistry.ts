@@ -591,6 +591,54 @@ const availableTools: AvailableTools = {
       beta: true,
     },
   },
+  'exa-ai': {
+    author: 'https://nicolasmontone.com',
+    name: 'exa-ai',
+    type: 'registry:lib',
+    description: 'Exa.ai search tools',
+    dependencies: ['zod', 'ai', 'exa-js'],
+    files: [
+      {
+        path: 'lib/tools/exa-ai.ts',
+        type: 'registry:lib',
+        content: fs.readFileSync(
+          path.join(__dirname, '..', 'tools', 'exa-ai.ts'),
+          'utf-8'
+        ),
+        target: '',
+      },
+    ],
+    ui: {
+      usage: fs.readFileSync(
+        path.join(__dirname, '..', 'usage', 'exa-ai.txt'),
+        'utf-8'
+      ),
+      title: 'Search',
+      tools: [
+        {
+          title: 'searchUrls',
+          description: 'Search for URLs based on a query',
+        },
+        {
+          title: 'searchForUrlsContent',
+          description: 'Search for content from URLs',
+        },
+        {
+          title: 'searchWikipedia',
+          description: 'Search for Wikipedia articles',
+        },
+        {
+          title: 'searchReddit',
+          description: 'Search for Reddit discussions',
+        },
+        {
+          title: 'searchNews',
+          description: 'Search for news articles',
+        },
+      ],
+      beta: true,
+    },
+  },
 } as const
 
 // first we write a file data.ts with an object with all the data of the tools
