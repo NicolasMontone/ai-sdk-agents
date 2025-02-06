@@ -4,7 +4,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { Separator } from '@/components/ui/separator'
 import GithubStars from '@/components/github-stars'
 import { Suspense } from 'react'
 
