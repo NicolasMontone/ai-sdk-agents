@@ -24,7 +24,6 @@ export default async function Layout({
             <SidebarTrigger className="-ml-1" />
             <GithubStars />
           </div>
-          <Separator orientation="vertical" className="mr-2 h-4" />
         </header>
         <main className="w-full p-2">{children}</main>
       </SidebarInset>
