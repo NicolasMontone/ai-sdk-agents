@@ -6,14 +6,18 @@ import {
 } from '@/components/ui/sidebar'
 import GithubStars from '@/components/github-stars'
 import { Suspense } from 'react'
+import { cookies } from "next/headers"
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true"
+
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={defaultOpen}>
       <Suspense fallback={<div>Loading...</div>}>
         <AppSidebar />
       </Suspense>
