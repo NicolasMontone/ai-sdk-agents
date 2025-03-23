@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "bun run generate:registry && next build",
+    "build": "npm run generate:registry && next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:registry": "bun run scripts/generateToolsRegistry.ts"
+    "generate:registry": "tsx scripts/generateToolsRegistry.ts"
   },
   "dependencies": {
     "@ai-sdk/fal": "^0.0.2",
@@ -62,6 +62,7 @@
     "eslint-config-next": "15.1.6",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.7.1",
     "typescript": "^5"
   }
 }
