@@ -53,21 +53,21 @@ export const vercelTools = (
   return tools
 }
 
-function searchProjects(client: Vercel) {
-  return client.projects.getProjects({
+async function searchProjects(client: Vercel) {
+  return await client.projects.getProjects({
     limit: '20',
   })
 }
 
-function searchDeployments(client: Vercel, query: string) {
-  return client.deployments.getDeployments({
+async function searchDeployments(client: Vercel, query: string) {
+  return await client.deployments.getDeployments({
     limit: 20,
     projectId: query,
   })
 }
 
-function searchDomains(client: Vercel) {
-  return client.domains.getDomains({
+async function searchDomains(client: Vercel) {
+  return await client.domains.getDomains({
     limit: 20,
   })
 }
