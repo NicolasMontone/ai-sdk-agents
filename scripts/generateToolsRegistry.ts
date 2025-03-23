@@ -641,6 +641,18 @@ const availableTools: AvailableTools = {
   },
 } as const
 
+// Create public/r directory if it doesn't exist
+const publicRDir = path.join(__dirname, '..', 'public', 'r')
+if (!fs.existsSync(publicRDir)) {
+  fs.mkdirSync(publicRDir, { recursive: true })
+}
+
+// Create app directory if it doesn't exist
+const appDir = path.join(__dirname, '..', 'app')
+if (!fs.existsSync(appDir)) {
+  fs.mkdirSync(appDir, { recursive: true })
+}
+
 // first we write a file data.ts with an object with all the data of the tools
 fs.writeFileSync(
   path.join(__dirname, '..', 'app/data.ts'),
